@@ -35,10 +35,12 @@ local scene = composer.newScene( sceneName )
     -- lives 
     local lives = 3
     
+    -- aidkits
     local aidKit1
     local aidKit2
     local aidKit3
 
+    -- points
     local points = 0
     local correct
     local incorrect
@@ -77,18 +79,19 @@ local scene = composer.newScene( sceneName )
     local question14
     local question15
 
+    --randomOperator variable
     local randomOperator
-
------------------------------------------------------------------------------------------
+------------------------------------------
 -- LOCAL SOUNDS
 -----------------------------------------------------------------------------------------
 
-    -- sound
+    -- sounds for getting answer wrong and right
     local correctSound = audio.loadSound("Sounds/CorrectSound.wav")
     local correctSoundChannel
     local wrongSound = audio.loadSound("Sounds/IncorrectSound.mp3")
     local wrongSoundChannel
 
+    -- sounds for losing and winnig
     local youLoseSound = audio.loadSound("Sounds/loseGameSound.mp3")
     local youLoseSoundChannel
     local youWinSound = audio.loadSound("Sounds/youWonSound.mp3")
@@ -98,6 +101,7 @@ local scene = composer.newScene( sceneName )
 -- LOCAL FUNCTIONS
 -----------------------------------------------------------------------------------------
 
+-- hiding all images 
 local function HideImages()
     question1.isVisible = false
     hug.isVisible = false
@@ -131,13 +135,14 @@ local function HideImages()
     annoying.isVisible = false
 end 
 
-local function ShowDrops()
+-- function showing lives/aidkits
+local function ShowAidKits()
     aidKit1.isVisible = true
     aidKit2.isVisible = true
     aidKit3.isVisible = true
 end
 
--- Functions that checks if the buttons have been clicked.
+-- Functions that checks if the buttons have been clicked for the right answer.
 local function TouchListenerAnswer(event)
     -- get the object name that was clicked
     local object = event.target
@@ -146,74 +151,77 @@ local function TouchListenerAnswer(event)
 
     if (event.phase == "ended") then
 
+        --correct text is visible
         print("correct")
         correct.isVisible = true
-
-        timer.performWithDelay(1000, HideCorrect)
 
         --print (points)
         points = points + 1
 
+        --plays sound
         correctSoundChannel = audio.play(correctSound)
 
+        --calling functions
         RemoveAllTouchListenersL3()
         HideImages()
 
-    
+        --if you win the, game sound plays and changes to you win screen
         if (points == 5) then
             composer.gotoScene( "YouWin_screen" )
             youWinSoundChannel = audio.play(youWinSound)
-
-
         else
+            --otherwise ask a new question
             timer.performWithDelay( 1000, AskQuestionLevel3 )
         end        
 
     end
 end
 
+--Functions that checks if the buttons have been clicked for the wrong answers.
 local function TouchListenerWrongAnswer1(event)
     local object = event.target
     -- get the user answer from the text object that was clicked on
     if (event.phase == "ended") then
 
+        --take away a life
         lives = lives - 1
         print("***object.name = " .. object.name)
 
-        --object:removeEventListener("touch", TouchListenerWrongAnswer1)
+        --call functions
         RemoveAllTouchListenersL3()
         HideImages()
 
+        --display incorrect and hide correct
         incorrect.isVisible = true
         correct.isVisible = false
 
-        wrongSoundChannel = audio.play(wrongSound)
-
         print("wronganswer1")
 
-        if (lives == 3) then
+        -- if you lose a life, a aidkit disappears
+        if (lives == 2) then
             aidKit1.isVisible = false
-        elseif (lives == 2) then
-            aidKit2.isVisible = false
+            wrongSoundChannel = audio.play(wrongSound)
         elseif (lives == 1) then
+            aidKit2.isVisible = false
+            wrongSoundChannel = audio.play(wrongSound)
+        elseif (lives == 0) then
             aidKit3.isVisible = false
         end
         
+        -- if you lose, it plays the you lose sound and goes to you lose screen
         if (lives == 0) then
             composer.gotoScene( "YouLose_screen" )
             youLoseSoundChannel = audio.play(youLoseSound)
 
-            -- play incorrect sound 
-            --wrongSoundChannel = audio.play(wrongSound)
-
         else
+            --otherwise it asks another question
             timer.performWithDelay( 1000, AskQuestionLevel3 )
-            --AskQuestionLevel1()
         end        
 
     end
 end
 
+-- removing all touch listeners from each question 
 function RemoveTouchListenersQ1L3()
     tissue:removeEventListener("touch", TouchListenerAnswer)
     yell:removeEventListener("touch", TouchListenerWrongAnswer1)       
@@ -304,6 +312,7 @@ function RemoveTouchListenersQ15L3()
     annoying:removeEventListener("touch", TouchListenerWrongAnswer1)
 end
 
+-- removing every touch listener
 function RemoveAllTouchListenersL3()
     if (randomOperator == 1) then
         RemoveTouchListenersQ1L3()
@@ -338,6 +347,7 @@ function RemoveAllTouchListenersL3()
     end
 end
 
+--if you lose a life it calls these functions
 function NewQuestionTimerL3()
     if (lives == 3) then
         HideImages()
@@ -358,10 +368,11 @@ function NewQuestionTimerL3()
     end
 end
 
-
+--asking a question
 function AskQuestionLevel3()
     randomOperator = math.random (1, 15)
 
+    --incorrect and correct are set to invisible
     incorrect.isVisible = false
     correct.isVisible = false
     HideImages()
@@ -609,12 +620,6 @@ function AskQuestionLevel3()
 end
 
 -------------------------------------------------------------------------------------------------------------------------
--- hide correctObject
-local function HideCorrect()
-    correct.isVisible = false
-    AskQuestionLevel3()
-end
-
 -----------------------------------------------------------------------------------------
 -- GLOBAL SCENE FUNCTIONS
 -----------------------------------------------------------------------------------------
@@ -652,6 +657,7 @@ function scene:create( event )
     aidKit3.y = display.contentHeight/1.75
     aidKit3.isVisible = true
 
+    --correct and incorrect text objects
     correct = display.newText("Good Job!", display.contentWidth/2, display.contentHeight*3/4, nil, 75 )
     correct:setTextColor(153/255, 76/255, 0)
     correct.isVisible = false
@@ -878,10 +884,12 @@ function scene:show( event )
         -- Called when the scene is now on screen.
         -- Insert code here to make the scene come alive.
         -- Example: start timers, begin animation, play audio, etc.
+        --reset lives and points 
         lives = 3
         points = 0        
 
-        ShowDrops()
+        --re calls ShowAidKits and AskQuestionLevel3
+        ShowAidKits()
         AskQuestionLevel3()
 
     end

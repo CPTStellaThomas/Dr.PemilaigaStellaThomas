@@ -32,16 +32,20 @@ local scene = composer.newScene( sceneName )
     -- The local variables for this scene
     local bkg_image
 
+    --objects
     local questionObject
     local nameObject
     local nameObject2
+
     -- lives 
     local lives = 3
     
+    -- lives/drops images
     local drop1
     local drop2
     local drop3
 
+    -- points
     local points = 0
     local correct
     local incorrect
@@ -87,12 +91,13 @@ local scene = composer.newScene( sceneName )
 -- LOCAL SOUNDS
 -----------------------------------------------------------------------------------------
 
-    -- sound
+    -- sounds for getting answer wrong and right
     local correctSound = audio.loadSound("Sounds/CorrectSound.wav")
     local correctSoundChannel
     local wrongSound = audio.loadSound("Sounds/IncorrectSound.mp3")
     local wrongSoundChannel
 
+    -- sounds for losing and winnig
     local youLoseSound = audio.loadSound("Sounds/loseGameSound.mp3")
     local youLoseSoundChannel
     local youWinSound = audio.loadSound("Sounds/youWonSound.mp3")
@@ -102,6 +107,7 @@ local scene = composer.newScene( sceneName )
 -- LOCAL FUNCTIONS
 -----------------------------------------------------------------------------------------
 
+--hiding all images
 local function HideImages()
     bruises.isVisible = false
     cuts.isVisible = false
@@ -134,13 +140,14 @@ local function HideImages()
     afterBite.isVisible = false
 end 
 
+--showing the lives
 local function ShowDrops()
     drop1.isVisible = true
     drop2.isVisible = true
     drop3.isVisible = true
 end
 
--- Functions that checks if the buttons have been clicked.
+-- Functions that checks if the buttons have been clicked is right.
 local function TouchListenerAnswer(event)
     -- get the object name that was clicked
     local object = event.target
@@ -149,112 +156,122 @@ local function TouchListenerAnswer(event)
 
     if (event.phase == "ended") then
 
+        --correct text obect is visible
         print("correct")
         correct.isVisible = true
-
-        timer.performWithDelay(1000, HideCorrect)
 
         --print (points)
         points = points + 1
 
+        --play correct sound
         correctSoundChannel = audio.play(correctSound)
 
+        --calling functions
         RemoveAllTouchListeners()
         HideImages()
 
-    
+        -- if you win the game, you win sound plays and changes to you win screen
         if (points == 5) then
             composer.gotoScene( "YouWin_screen" )
             youWinSoundChannel = audio.play(youWinSound)
 
         else
+            -- otherwise it aks another question
             timer.performWithDelay( 1000, AskQuestionLevel1 )
         end        
 
     end
 end
 
+-- Functions that checks if the buttons have been clicked is wrong.
 local function TouchListenerWrongAnswer1(event)
     local object = event.target
     -- get the user answer from the text object that was clicked on
     if (event.phase == "ended") then
 
+        --lose a life
         lives = lives - 1
         print("***object.name = " .. object.name)
 
-        --object:removeEventListener("touch", TouchListenerWrongAnswer1)
+        --calling functions
         RemoveAllTouchListeners()
         HideImages()
 
+        --incorrect text is visible
         incorrect.isVisible = true
         correct.isVisible = false
 
-        wrongSoundChannel = audio.play(wrongSound)
-
         print("wronganswer1")
 
+        --if you lose a life, wrong sound plays and one aidkit becomes invisible
         if (lives == 3) then
             drop1.isVisible = false
+            wrongSoundChannel = audio.play(wrongSound)
         elseif (lives == 2) then
             drop2.isVisible = false
+            wrongSoundChannel = audio.play(wrongSound)
         elseif (lives == 1) then
             drop3.isVisible = false
+            wrongSoundChannel = audio.play(wrongSound)
         end
         
+        --if you lose, lose game sound plays and changes to you lose screen
         if (lives == 0) then
             composer.gotoScene( "YouLose_screen" )
             youLoseSoundChannel = audio.play(youLoseSound)
 
         else
             timer.performWithDelay( 1000, AskQuestionLevel1 )
-            --AskQuestionLevel1()
         end        
 
     end
 end
 
+-- Functions that checks if the buttons have been clicked is wrong.
 local function TouchListenerWrongAnswer2(event)
     local object = event.target
     -- get the user answer from the text object that was clicked on
     if (event.phase == "ended") then
 
+        --lose a life
         lives = lives - 1
         print("***object.name = " .. object.name)
 
-        --object:removeEventListener("touch", TouchListenerWrongAnswer2)
+        --calling functions
         RemoveAllTouchListeners()
         HideImages()
-        
+
+        --incorrect text is visible
         incorrect.isVisible = true
         correct.isVisible = false
 
-        wrongSoundChannel = audio.play(wrongSound)
-        
-        print("wronganswer2")
+        print("wronganswer1")
 
+        --if you lose a life, wrong sound plays and one aidkit becomes invisible
         if (lives == 3) then
             drop1.isVisible = false
+            wrongSoundChannel = audio.play(wrongSound)
         elseif (lives == 2) then
             drop2.isVisible = false
+            wrongSoundChannel = audio.play(wrongSound)
         elseif (lives == 1) then
             drop3.isVisible = false
+            wrongSoundChannel = audio.play(wrongSound)
         end
         
+        --if you lose, lose game sound plays and changes to you lose screen
         if (lives == 0) then
             composer.gotoScene( "YouLose_screen" )
             youLoseSoundChannel = audio.play(youLoseSound)
 
-            incorrect.isVisible = false
-
         else
-            --AskQuestionLevel1()
             timer.performWithDelay( 1000, AskQuestionLevel1 )
-            --incorrect.isVisible = false
         end        
 
     end
 end
 
+-- removing touch Listeners from each question
 function RemoveTouchListenersQ1()
     ice:removeEventListener("touch", TouchListenerAnswer)
     bandaid:removeEventListener("touch", TouchListenerWrongAnswer1)       
@@ -345,6 +362,7 @@ function RemoveTouchListenersQ15()
     lipChap:removeEventListener("touch", TouchListenerWrongAnswer2)
 end
 
+-- removing all the touch Listeners
 function RemoveAllTouchListeners()
     if (randomOperator == 1) then
         RemoveTouchListenersQ1()
@@ -379,6 +397,7 @@ function RemoveAllTouchListeners()
     end
 end
 
+--when you lose a life these functions are called
 function NewQuestionTimer()
     if (lives == 3) then
         HideImages()
@@ -399,7 +418,7 @@ function NewQuestionTimer()
     end
 end
 
-
+-- asking the questions
 function AskQuestionLevel1()
     randomOperator = math.random (1, 15)
 
@@ -649,13 +668,7 @@ function AskQuestionLevel1()
 end
 
 -------------------------------------------------------------------------------------------------------------------------
--- hide correctObject
-local function HideCorrect()
-    correct.isVisible = false
-    AskQuestionLevel()
-end
-
------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------
 -- GLOBAL SCENE FUNCTIONS
 -----------------------------------------------------------------------------------------
 
@@ -692,6 +705,7 @@ function scene:create( event )
     drop3.y = display.contentHeight/3
     drop3.isVisible = true
 
+    -- create the incorrecta and correct text object
     correct = display.newText("CORRECT!", display.contentWidth/2, display.contentHeight*2.5/4, nil, 100 )
     correct:setTextColor(153/255, 76/255, 0)
     correct.isVisible = false
@@ -953,9 +967,11 @@ function scene:show( event )
         -- Called when the scene is now on screen.
         -- Insert code here to make the scene come alive.
         -- Example: start timers, begin animation, play audio, etc.
+        --re stares lives and points
         lives = 3
         points = 0        
 
+        --re cretes lives/drops and questions
         ShowDrops()
         AskQuestionLevel1()
 

@@ -1,4 +1,4 @@
----------------------------------------------------------------- level1_screen.lua
+---------------------------------------------------------------- 
 -- Created by: Your Name
 -- Date: Month Day, Year
 -- Description: This is the level 1 screen of the game.
@@ -24,7 +24,7 @@ local scene = composer.newScene( sceneName )
 
 -- local variables for the scene
 local bkg
-local mainMenuButton
+local levelSelectButton
 
 -- variables for images
 local scrollSpeed1 = 2
@@ -56,8 +56,8 @@ local function MoveImageGIF(event)
 end
 
 -- Creating Transitioning Function back to main menu
-local function MainMenuTransition( )
-    composer.gotoScene( "main_menu", {effect = "zoomOutIn", time = 500})
+local function LevelSelectTransition( )
+    composer.gotoScene( "LevelSelect", {effect = "zoomOutIn", time = 500})
 end
 
 -----------------------------------------------------------------------------------------
@@ -89,7 +89,7 @@ function scene:create( event )
     -----------------------------------------------------------------------------------------
 
     -- Creating Back Button
-    mainMenuButton = widget.newButton( 
+    levelSelectButton = widget.newButton( 
     {
         -- Setting Position
         x = display.contentWidth/2,
@@ -100,18 +100,18 @@ function scene:create( event )
         -- height = 106,
 
         -- Setting Visual Properties
-        defaultFile = "Images for level three/MainMenuButton.png",
-        overFile = "Images for level three/MainMenuButtonPressed.png",
+        defaultFile = "Images for level three/levelSelectButton.png",
+        overFile = "Images for level three/levelSelectButtonPressed.png",
 
         -- Setting Functional Properties
-        onRelease = MainMenuTransition
+        onRelease = LevelSelectTransition
 
     } )
 
     -----------------------------------------------------------------------------------------
 
     -- Associating Buttons with this scene
-    sceneGroup:insert( mainMenuButton )
+    sceneGroup:insert( levelSelectButton )
 
 
     animation = display.newImageRect("Images for level three/YAY.png", 350, 250)

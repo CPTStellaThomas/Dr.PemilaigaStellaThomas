@@ -27,6 +27,7 @@ local bkg
 local level1Button
 local level2Button
 local level3Button
+local level4Button
 
 -----------------------------------------------------------------------------------------
 -- LOCAL FUNCTIONS
@@ -47,6 +48,10 @@ local function Level3Transition( )
     composer.gotoScene( "level3_screen", {effect = "zoomOutIn", time = 500})
 end
 
+-- Creating Transitioning Function back to level4
+local function Level4Transition( )
+    composer.gotoScene( "level4_screen", {effect = "zoomOutIn", time = 500})
+end
 -----------------------------------------------------------------------------------------
 -- GLOBAL SCENE FUNCTIONS
 -----------------------------------------------------------------------------------------
@@ -80,11 +85,11 @@ function scene:create( event )
     {
         -- Setting Position
         x = display.contentWidth/2,
-        y = display.contentHeight*1/6,
+        y = display.contentHeight*.7/6,
 
         -- Setting Dimensions
-        -- width = 1000,
-        -- height = 106,
+        width = 400,
+        height = 150,
 
         -- Setting Visual Properties
         defaultFile = "Images for level three/Level1.png",
@@ -100,11 +105,11 @@ function scene:create( event )
     {
         -- Setting Position
         x = display.contentWidth/2,
-        y = display.contentHeight*3/6,
+        y = display.contentHeight*2.3/6,
 
         -- Setting Dimensions
-        -- width = 1000,
-        -- height = 106,
+        width = 400,
+        height = 150,
 
         -- Setting Visual Properties
         defaultFile = "Images for level three/Level2.png",
@@ -120,11 +125,11 @@ function scene:create( event )
     {
         -- Setting Position
         x = display.contentWidth/2,
-        y = display.contentHeight*5/6,
+        y = display.contentHeight*3.8/6,
 
         -- Setting Dimensions
-        -- width = 1000,
-        -- height = 106,
+        width = 400,
+        height = 150,
 
         -- Setting Visual Properties
         defaultFile = "Images for level three/Level3.png",
@@ -136,11 +141,31 @@ function scene:create( event )
     } )
 
     -----------------------------------------------------------------------------------------
+        -- Creating Back Button
+    level4Button = widget.newButton( 
+    {
+        -- Setting Position
+        x = display.contentWidth/2,
+        y = display.contentHeight*5.3/6,
+
+        -- Setting Dimensions
+        width = 400,
+        height = 150,
+
+        -- Setting Visual Properties
+        defaultFile = "Images for level three/Level4.png",
+        overFile = "Images for level three/Level4Pressed.png",
+
+        -- Setting Functional Properties
+        onRelease = Level4Transition
+
+    } )
 
     -- Associating Buttons with this scene
     sceneGroup:insert( level1Button )
     sceneGroup:insert( level2Button )
     sceneGroup:insert( level3Button )
+    sceneGroup:insert( level4Button )
 end
 
 -----------------------------------------------------------------------------------------
