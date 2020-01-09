@@ -87,6 +87,7 @@ local scene = composer.newScene( sceneName )
 
     local randomOperator
 
+    --variables for animation
     local doctorAnimation
     local scrollSpeed1 = 2
 
@@ -112,14 +113,14 @@ local scene = composer.newScene( sceneName )
 -----------------------------------------------------------------------------------------
 
 
--- Function: MoveCar1
+-- Function: MoveDoctor Animation
 -- Input: this function accepts an event listner 
 -- Output: none
 -- Description: This function adds the scroll speed to the x-value of the car. 
-local function MovedoctorAnimation(event)
-    -- add the scroll speed to the x-value of the car
+local function MoveDoctorAnimation(event)
+    -- add the scroll speed to the x-value of the animation
     doctorAnimation.x = doctorAnimation.x + scrollSpeed1
-    -- change the transparency of the car every time it moves so that it fades out
+    -- change the transparency of the animation every time it moves so that it fades out
     doctorAnimation.alpha = doctorAnimation.alpha + 0.05
 
     if((doctorAnimation.x + doctorAnimation.width) > display.contentWidth) then 
@@ -132,7 +133,7 @@ local function MovedoctorAnimation(event)
 end
  
 -- doctorAnimation will be called over and over agian
-Runtime:addEventListener("enterFrame", MovedoctorAnimation) 
+Runtime:addEventListener("enterFrame", MoveDoctorAnimation) 
 
 --hiding all images
 local function HideImages()
@@ -732,6 +733,7 @@ function scene:create( event )
     drop3.y = display.contentHeight/3
     drop3.isVisible = true
 
+    -- create doctor animation
     doctorAnimation = display.newImageRect("Images for level three/doctor.png", 250, 220)
     doctorAnimation.alpha = 1
     doctorAnimation.x = 775
