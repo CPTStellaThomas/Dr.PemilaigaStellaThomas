@@ -17,7 +17,7 @@ local widget = require( "widget" )
 -----------------------------------------------------------------------------------------
 
 -- Naming Scene
-sceneName = "leve3_screen"
+sceneName = "level3_screen"
 
 -----------------------------------------------------------------------------------------
 
@@ -230,7 +230,7 @@ end
 
 function RemoveTouchListenersQ2L3()
     hug:removeEventListener("touch", TouchListenerAnswer)
-    annoying:removeEventListener("touch", TouchListenerWrongAnswer1)       
+    yell:removeEventListener("touch", TouchListenerWrongAnswer1)       
     ignore:removeEventListener("touch", TouchListenerWrongAnswer1)
 end
 
@@ -890,7 +890,7 @@ function scene:show( event )
 
         --re calls ShowAidKits and AskQuestionLevel3
         ShowAidKits()
-        AskQuestionLevel3()
+        NewQuestionTimerL3()
 
     end
 
