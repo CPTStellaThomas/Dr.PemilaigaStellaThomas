@@ -87,6 +87,11 @@ local scene = composer.newScene( sceneName )
 
     local randomOperator
 
+    --variables for animation
+    local doctorAnimation
+    local scrollSpeed1 = 2
+
+
 -----------------------------------------------------------------------------------------
 -- LOCAL SOUNDS
 -----------------------------------------------------------------------------------------
@@ -106,6 +111,29 @@ local scene = composer.newScene( sceneName )
 -----------------------------------------------------------------------------------------
 -- LOCAL FUNCTIONS
 -----------------------------------------------------------------------------------------
+
+
+-- Function: MoveDoctor Animation
+-- Input: this function accepts an event listner 
+-- Output: none
+-- Description: This function adds the scroll speed to the x-value of the car. 
+local function MoveDoctorAnimation(event)
+    -- add the scroll speed to the x-value of the animation
+    doctorAnimation.x = doctorAnimation.x + scrollSpeed1
+    -- change the transparency of the animation every time it moves so that it fades out
+    doctorAnimation.alpha = doctorAnimation.alpha + 0.05
+
+    if((doctorAnimation.x + doctorAnimation.width) > display.contentWidth) then 
+        doctorAnimation.x = doctorAnimation.x - 3 scrollSpeed1 = -scrollSpeed1 
+    end
+
+    if(doctorAnimation.x < 900) then 
+        doctorAnimation.x = doctorAnimation.x + 3 scrollSpeed1 = -scrollSpeed1
+     end
+end
+ 
+-- doctorAnimation will be called over and over agian
+Runtime:addEventListener("enterFrame", MoveDoctorAnimation) 
 
 --hiding all images
 local function HideImages()
@@ -705,6 +733,12 @@ function scene:create( event )
     drop3.y = display.contentHeight/3
     drop3.isVisible = true
 
+    -- create doctor animation
+    doctorAnimation = display.newImageRect("Images for level three/doctor.png", 250, 220)
+    doctorAnimation.alpha = 1
+    doctorAnimation.x = 775
+    doctorAnimation.y = 335
+
     -- create the incorrecta and correct text object
     correct = display.newText("CORRECT!", display.contentWidth/2, display.contentHeight*2.5/4, nil, 100 )
     correct:setTextColor(153/255, 76/255, 0)
@@ -942,6 +976,7 @@ function scene:create( event )
     sceneGroup:insert( epiPen )
     sceneGroup:insert( lipChap )
     sceneGroup:insert( afterBite )
+    sceneGroup:insert( doctorAnimation )
 
 end --function scene:create( event )
 
