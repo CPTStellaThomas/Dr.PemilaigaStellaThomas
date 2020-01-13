@@ -188,6 +188,7 @@ local function PositionAnswers()
         correctAnswer.x = X1
         correctAnswer.y = Y1
         correctAnswerPreviousY = Y1
+
         displayAnswerText.y = Y1
 
         --alternateAnswerBox2
@@ -342,9 +343,7 @@ local function TouchListenerCorrectAnswer(touch)
             correctAnswer.y = touch.y
 
         -- this occurs when they release the mouse
-        elseif (touch.phase == "ended") then
-
-            correctAnswerAlreadyTouched = false
+        elseif (touch.phase == "ended") then            
 
             print  ("***Executing TouchListenerCorrectAnswer")
 
@@ -366,6 +365,8 @@ local function TouchListenerCorrectAnswer(touch)
                 correctAnswer.x = correctAnswerPreviousX
                 correctAnswer.y = correctAnswerPreviousY
             end
+
+            correctAnswerAlreadyTouched = false
         end
     end                
 end 
@@ -386,7 +387,7 @@ local function TouchListenerAlternateAnswer1(touch)
             alternateAnswer1.y = touch.y
 
         elseif (touch.phase == "ended") then
-            alternateAnswer1AlreadyTouched = false
+            
 
             print  ("***Executing TouchListenerAlternateAnswer1")
 
@@ -407,6 +408,8 @@ local function TouchListenerAlternateAnswer1(touch)
                 alternateAnswer1.x = alternateAnswer1PreviousX
                 alternateAnswer1.y = alternateAnswer1PreviousY
             end
+
+            alternateAnswer1AlreadyTouched = false
         end
     end
 end
@@ -426,7 +429,7 @@ local function TouchListenerAlternateAnswer2(touch)
             alternateAnswer2.y = touch.y
 
         elseif (touch.phase == "ended") then
-            alternateAnswer2AlreadyTouched = false
+            
             print  ("***Executing TouchListenerAlternateAnswer2")
 
             -- if the box is in the userAnswerBox Placeholder  go to center of placeholder
@@ -446,6 +449,8 @@ local function TouchListenerAlternateAnswer2(touch)
                 alternateAnswer2.x = alternateAnswer2PreviousX
                 alternateAnswer2.y = alternateAnswer2PreviousY
             end
+
+            alternateAnswer2AlreadyTouched = false
         end
     end
 end
@@ -479,9 +484,6 @@ function scene:create( event )
     bkg.y = display.contentCenterY
     bkg.width = display.contentWidth
     bkg.height = display.contentHeight
-
-    -- Send the background image to the back layer so all other objects can be on top
-    bkg:toBack()
     
     -- creating the syringe
     syringe = display.newImageRect("ImagesLVL4/syringe@2x.png", 100, 200)
@@ -621,11 +623,9 @@ function scene:hide( event )
     -- Called immediately after scene goes off screen.
     elseif ( phase == "did" ) then
         
-        if (lives == 0 ) then 
             timer.cancel(bloodtimer1)
             timer.cancel(bloodtimer2)
             timer.cancel(bloodtimer3)
-        end
 
         RemoveTouchEventListeners()
     end
