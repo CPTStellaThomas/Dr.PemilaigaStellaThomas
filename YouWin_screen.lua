@@ -57,6 +57,8 @@ end
 
 -- Creating Transitioning Function back to main menu
 local function LevelSelectTransition( )
+    composer.removeScene( "level2_screen" )
+    composer.removeScene( "level4_screen" )
     composer.gotoScene( "LevelSelect", {effect = "zoomOutIn", time = 500})
 end
 

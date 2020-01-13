@@ -122,12 +122,12 @@ end
 -- The function that will go to the main menu 
 local function gotoYouLose()
     print("going to you lose")
-    composer.gotoScene( "you_lose")
+    composer.gotoScene( "YouLose_screen")
 end
 
 local function gotoYouWin()
     print("going to you win")
-    composer.gotoScene( "you_win")
+    composer.gotoScene( "YouWin_screen")
 end
 
 local function DisplayQuestion()
@@ -474,7 +474,7 @@ function scene:create( event )
     local sceneGroup = self.view
 	
     -- Display background
-    bkg = display.newImage("Images/lvl4Screen@2x.png")
+    bkg = display.newImage("ImagesLVL4/lvl4Screen@2x.png")
     bkg.x = display.contentCenterX
     bkg.y = display.contentCenterY
     bkg.width = display.contentWidth
@@ -484,21 +484,21 @@ function scene:create( event )
     bkg:toBack()
     
     -- creating the syringe
-    syringe = display.newImageRect("Images/syringe@2x.png", 100, 200)
+    syringe = display.newImageRect("ImagesLVL4/syringe@2x.png", 100, 200)
     syringe.x = 125
     syringe.y = 100
 
-    heart3 = display.newImageRect("Images/heart@2x.png", 50, 50)
+    heart3 = display.newImageRect("ImagesLVL4/heart@2x.png", 50, 50)
     heart3.x = 125
     heart3.y = 225
     heart3.isVisible = false
 
-    heart2 = display.newImageRect("Images/heart@2x.png", 50, 50)
+    heart2 = display.newImageRect("ImagesLVL4/heart@2x.png", 50, 50)
     heart2.x = 125
     heart2.y = 225
     heart2.isVisible = false
 
-    heart1 = display.newImageRect("Images/heart@2x.png", 50, 50)
+    heart1 = display.newImageRect("ImagesLVL4/heart@2x.png", 50, 50)
     heart1.x = 125
     heart1.y = 225
     heart1.isVisible = false
@@ -530,7 +530,7 @@ function scene:create( event )
 
 
     -- the black box where the user will drag the answer
-    userAnswerBoxPlaceholder = display.newImageRect("Images/answerBox@2x.png",  300, 130)
+    userAnswerBoxPlaceholder = display.newImageRect("ImagesLVL4/answerBox@2x.png",  300, 130)
     userAnswerBoxPlaceholder.x = 512
     userAnswerBoxPlaceholder.y = 350
 
@@ -543,7 +543,7 @@ function scene:create( event )
     incorrectText.isVisible = false
 
     -- X4 = the x of displayAnswerText
-    displayAnswerText = display.newText( "Correct Answer:", 250, Y1, nil, 30 )
+    displayAnswerText = display.newText( "Correct Answer:", 240, Y1, nil, 30 )
     displayAnswerText:setTextColor(9/255,200/255,0/255) -- sets text to green
     displayAnswerText.isVisible = false
 

@@ -122,11 +122,11 @@ end
 
 -- The function that will go to the main menu 
 local function gotoYouLose()
-    composer.gotoScene( "you_lose")
+    composer.gotoScene( "YouLose_screen")
 end
 
 local function gotoYouWin()
-    composer.gotoScene( "you_win")
+    composer.gotoScene( "YouWin_screen")
 end
 
 local function DisplayQuestion()
@@ -445,7 +445,7 @@ function scene:create( event )
 
 
 	-- Display background
-    bkg = display.newImage("Images/lvl2ScreenThomas@2x.png")
+    bkg = display.newImage("ImagesLVL2/lvl2ScreenThomas@2x.png")
     bkg.x = display.contentCenterX
     bkg.y = display.contentCenterY
     bkg.width = display.contentWidth
@@ -455,21 +455,21 @@ function scene:create( event )
     bkg:toBack()
     
     -- creating the syringe
-    syringe = display.newImageRect("Images/syringeThomas@2x.png", 100, 200)
+    syringe = display.newImageRect("ImagesLVL2/syringeThomas@2x.png", 100, 200)
     syringe.x = 125
     syringe.y = 100
 
-    heart3 = display.newImageRect("Images/heartThomas@2x.png", 50, 50)
+    heart3 = display.newImageRect("ImagesLVL2/heartThomas@2x.png", 50, 50)
     heart3.x = 125
     heart3.y = 225
     heart3.isVisible = false
 
-    heart2 = display.newImageRect("Images/heartThomas@2x.png", 50, 50)
+    heart2 = display.newImageRect("ImagesLVL2/heartThomas@2x.png", 50, 50)
     heart2.x = 125
     heart2.y = 225
     heart2.isVisible = false
 
-    heart1 = display.newImageRect("Images/heartThomas@2x.png", 50, 50)
+    heart1 = display.newImageRect("ImagesLVL2/heartThomas@2x.png", 50, 50)
     heart1.x = 125
     heart1.y = 225
     heart1.isVisible = false
@@ -500,7 +500,7 @@ function scene:create( event )
 
 
     -- the black box where the user will drag the answer
-    userAnswerBoxPlaceholder = display.newImageRect("Images/answerBox@2x.png",  130, 130, 0, 0)
+    userAnswerBoxPlaceholder = display.newImageRect("ImagesLVL2/answerBox@2x.png",  200, 130, 0, 0)
     userAnswerBoxPlaceholder.x = 700
     userAnswerBoxPlaceholder.y = 450
 
