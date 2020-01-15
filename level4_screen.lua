@@ -622,11 +622,12 @@ function scene:hide( event )
 
     -- Called immediately after scene goes off screen.
     elseif ( phase == "did" ) then
-        
+       
+        if (lives == 0) then
             timer.cancel(bloodtimer1)
             timer.cancel(bloodtimer2)
             timer.cancel(bloodtimer3)
-
+        end
         RemoveTouchEventListeners()
     end
 
