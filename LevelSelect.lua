@@ -35,7 +35,7 @@ local level4Button
 
 -- Creating Transitioning Function back to level1
 local function Level1Transition( )
-    composer.gotoScene( "level1_screen", {effect = "zoomOutIn", time = 500})
+    composer.gotoScene( "level1_screen", {effect = "zoomInOutFade", time = 500})
 end
 
 -- Creating Transitioning Function back to level2
@@ -45,7 +45,7 @@ end
 
 -- Creating Transitioning Function back to level3
 local function Level3Transition( )
-    composer.gotoScene( "level3_screen", {effect = "zoomOutIn", time = 500})
+    composer.gotoScene( "level3_screen", {effect = "zoomOutInFade", time = 500})
 end
 
 -- Creating Transitioning Function back to level4
