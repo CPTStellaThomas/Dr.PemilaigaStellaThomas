@@ -122,10 +122,12 @@ end
 
 -- The function that will go to the main menu 
 local function gotoYouLose()
+    composer.removeScene( "level2_screen" )
     composer.gotoScene( "YouLose_screen")
 end
 
 local function gotoYouWin()
+    composer.removeScene( "level2_screen" )
     composer.gotoScene( "YouWin_screen")
 end
 
@@ -241,17 +243,17 @@ end
 
 local function heart1Transition()
     heart1.isVisible = true
-    heart1.y = heart1.y + 7 
+    heart1.y = heart1.y + 8 
 end
 
 local function heart2Transition()
     heart2.isVisible = true
-    heart2.y = heart2.y + 7
+    heart2.y = heart2.y + 8
 end
 
 local function heart3Transition()
     heart3.isVisible = true
-    heart3.y = heart3.y + 7
+    heart3.y = heart3.y + 8
 end
 
 -- Function to Restart Level 1
@@ -290,7 +292,7 @@ local function IncorrectUserInput()
         timer.performWithDelay(1500, RestartLevel2) 
     elseif(lives == 0) then
         bloodheight3()
-        bloodtimer3 = timer.performWithDelay(0.001, heart3Transition, 750)
+        bloodtimer3 = timer.performWithDelay(0.001, heart3Transition, 600)
         timer.performWithDelay(1500, gotoYouLose)
     end
 end

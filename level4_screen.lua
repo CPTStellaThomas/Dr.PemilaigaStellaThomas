@@ -122,10 +122,12 @@ end
 -- The function that will go to the main menu 
 local function gotoYouLose()
     print("going to you lose")
+    composer.removeScene( "level4_screen" )
     composer.gotoScene( "YouLose_screen")
 end
 
 local function gotoYouWin()
+    composer.removeScene( "level4_screen" )
     print("going to you win")
     composer.gotoScene( "YouWin_screen")
 end
