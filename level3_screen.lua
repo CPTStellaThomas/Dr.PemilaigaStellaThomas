@@ -236,7 +236,7 @@ end
 
 function RemoveTouchListenersQ3L3()
     happy:removeEventListener("touch", TouchListenerAnswer)
-    tissue:removeEventListener("touch", TouchListenerWrongAnswer1)       
+    laugh:removeEventListener("touch", TouchListenerWrongAnswer1)       
     rude:removeEventListener("touch", TouchListenerWrongAnswer1)
 end
 
@@ -418,8 +418,8 @@ function AskQuestionLevel3()
         happy:addEventListener("touch", TouchListenerAnswer)
 
         -- wrong answers
-        tissue.isVisible = true
-        tissue:addEventListener("touch", TouchListenerWrongAnswer1)
+        laugh.isVisible = true
+        laugh:addEventListener("touch", TouchListenerWrongAnswer1)
 
         rude.isVisible = true
         rude:addEventListener("touch", TouchListenerWrongAnswer1)
